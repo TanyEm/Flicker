@@ -15,6 +15,9 @@
 		73046A1925DC4AFD00EA09F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73046A1725DC4AFD00EA09F9 /* LaunchScreen.storyboard */; };
 		73046A2425DC4AFD00EA09F9 /* Flicker_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73046A2325DC4AFD00EA09F9 /* Flicker_AppTests.swift */; };
 		73046A2F25DC4AFD00EA09F9 /* Flicker_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73046A2E25DC4AFD00EA09F9 /* Flicker_AppUITests.swift */; };
+		73046AA625DC86A800EA09F9 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73046AA525DC86A800EA09F9 /* APIConstants.swift */; };
+		73046AAF25DC870700EA09F9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73046AAE25DC870700EA09F9 /* NetworkManager.swift */; };
+		73A56FAC25DE64EF00AD093A /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A56FAB25DE64EF00AD093A /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		73046A2A25DC4AFD00EA09F9 /* Flicker AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flicker AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73046A2E25DC4AFD00EA09F9 /* Flicker_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flicker_AppUITests.swift; sourceTree = "<group>"; };
 		73046A3025DC4AFD00EA09F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73046AA525DC86A800EA09F9 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		73046AAE25DC870700EA09F9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		73A56FAB25DE64EF00AD093A /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,11 @@
 		73046A0B25DC4AF900EA09F9 /* Flicker App */ = {
 			isa = PBXGroup;
 			children = (
+				73046AAD25DC86ED00EA09F9 /* Managers */,
+				73046AA425DC866D00EA09F9 /* Views */,
+				73046AA325DC865C00EA09F9 /* ViewModels */,
+				73046AA125DC862F00EA09F9 /* Models */,
+				73046A9F25DC861100EA09F9 /* Configurations */,
 				73046A0C25DC4AF900EA09F9 /* AppDelegate.swift */,
 				73046A0E25DC4AF900EA09F9 /* SceneDelegate.swift */,
 				73046A1025DC4AF900EA09F9 /* ViewController.swift */,
@@ -126,6 +137,44 @@
 				73046A3025DC4AFD00EA09F9 /* Info.plist */,
 			);
 			path = "Flicker AppUITests";
+			sourceTree = "<group>";
+		};
+		73046A9F25DC861100EA09F9 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				73046AA525DC86A800EA09F9 /* APIConstants.swift */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		73046AA125DC862F00EA09F9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				73A56FAB25DE64EF00AD093A /* Photo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		73046AA325DC865C00EA09F9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		73046AA425DC866D00EA09F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		73046AAD25DC86ED00EA09F9 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				73046AAE25DC870700EA09F9 /* NetworkManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,7 +307,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73A56FAC25DE64EF00AD093A /* Photo.swift in Sources */,
+				73046AA625DC86A800EA09F9 /* APIConstants.swift in Sources */,
 				73046A1125DC4AF900EA09F9 /* ViewController.swift in Sources */,
+				73046AAF25DC870700EA09F9 /* NetworkManager.swift in Sources */,
 				73046A0D25DC4AF900EA09F9 /* AppDelegate.swift in Sources */,
 				73046A0F25DC4AF900EA09F9 /* SceneDelegate.swift in Sources */,
 			);
