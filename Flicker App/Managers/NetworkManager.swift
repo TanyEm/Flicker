@@ -8,11 +8,6 @@
 import Foundation
 import Combine
 
-protocol ApiConfiguration {
-    
-    var apiKey: String { get }
-    var path: String { get }
-}
 
 enum NetworkError: String, Error {
     case InvalidURL = "The url is invalid."
@@ -47,64 +42,52 @@ enum RequestMethod: CustomStringConvertible {
 struct NetworkManager {
     
     static let shared = NetworkManager()
-    
-    private init() {}
-    
+            
     private var urlComponents: URLComponents =  {
         var component = URLComponents()
         component.scheme = ApiConstants.URLScheme.description
         component.host = ApiConstants.Host.description
+        component.path = ApiConstants.NetworkPath.description
         
         component.queryItems = [
-                URLQueryItem(name: ApiConstants.Method.description, value: "flickr.photos.search"),
-            ]
+            URLQueryItem(name: ApiConstants.Method.description, value: "flickr.photos.search"),
+            URLQueryItem(name: ApiConstants.ApiKeyPrefix.description, value: ApiConstants.ApiKey.description),
+            URLQueryItem(name: ApiConstants.Format.description, value: "json"),
+            URLQueryItem(name: ApiConstants.Function.description, value: "1")
+        ]
         
         return component
         
     }()
     
-}
-
-extension NetworkManager: ApiConfiguration {
-    
-    internal var apiKey: String {
-        return ApiConstants.ApiKey.description
-    }
-    
-    internal var path: String {
-        return ApiConstants.NetworkPath.description
-    }
-    
-    func sendRequest(search: String, method: RequestMethod = .get) -> AnyPublisher<XMLParser, Error>  {
+    func getPhotosList(search: String, callback: @escaping (_ result: PhotoResponseData)->()) {
         
         var innerUrl = urlComponents
         var urlQueryItem: [URLQueryItem] = []
         urlQueryItem.append(.init(name:ApiConstants.Search.description, value: search))
-        innerUrl.queryItems = urlQueryItem
+        innerUrl.queryItems?.append(contentsOf: urlQueryItem)
+
+        guard let url = innerUrl.url else { return }
         
-        guard let url = innerUrl.url else {
-            return Empty().eraseToAnyPublisher()
-        }
+        print("URL: ", url)
         
         var request = URLRequest(url: url)
-
-        request.httpMethod = method.description
-
+        request.httpMethod = RequestMethod.get.description
         
-            
-        return URLSession.shared.dataTaskPublisher(for: request).tryMap { (element) -> Data in
-            
-            guard let response = element.response as? HTTPURLResponse, response.statusCode == 200 else {
-                throw NetworkError.InvalidURL
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                print("error=\(String(describing:error))")
+                return
             }
-        
-            return element.data
-            
-        }.map { (data) -> XMLParser in
-           
-            print(data)
-            return XMLParser(data: data)
-            
-        }.eraseToAnyPublisher()
+
+            do {
+                let resp = try JSONDecoder().decode(PhotosRequestModel.self, from: data!)
+                callback(resp.photos)
+                } catch {
+                    print("Error while decoding the response", error)
+                }
+            }
+        task.resume()
     }
+    
 }

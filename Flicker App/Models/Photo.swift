@@ -7,11 +7,18 @@
 
 import Foundation
 
-struct Photos {
-    var photo = [Photo]()
+struct PhotoData: Codable {
+    //https://live.staticflickr.com/{server-id}/{id}_{secret}_{size-suffix}.jpg
+    var id: String?
+    var secret: String?
+    var server: String?
+    var title: String?
 }
 
-struct Photo {
-    var id: String?
-    var title: String?
+struct PhotoResponseData: Codable {
+    var photo: [PhotoData]
+}
+
+struct PhotosRequestModel: Codable {
+    var photos: PhotoResponseData
 }

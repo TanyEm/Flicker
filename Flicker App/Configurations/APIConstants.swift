@@ -15,6 +15,8 @@ enum ApiConstants: CustomStringConvertible {
     case URLScheme
     case Host
     case Method
+    case Format
+    case Function
     case Search
     
     var description: String {
@@ -33,6 +35,10 @@ enum ApiConstants: CustomStringConvertible {
             return "api.flickr.com"
         case .Method:
             return "method"
+        case .Format:
+            return "format"
+        case .Function:
+            return "nojsoncallback"
         case .Search:
             return "text"
         }
