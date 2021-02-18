@@ -9,27 +9,25 @@ import Foundation
 
 class PhotosViewModel {
     
-    var list = [PhotoData]()
+    var list = PhotoData()
     
     func getPhotosList(search: String, callback: @escaping (_ result: PhotoResponseData)->()) {
         let request = NetworkManager()
         
         request.getPhotosList(search: "String") { (result) in
-            print(result.photo)
+            print("result.photo",result.photo)
             
             DispatchQueue.main.async {
                 if result.photo.count != 0 {
                     for photo in result.photo {
-                        print(photo.id)
+                        self.list = photo
+                        callback(result)
                     }
-                    print(result)
+                    //print("result", result)
                 } else {
                     print("Error: failed to get restaurant list")
                 }
             }
-
-            
         }
-
     }
 }
