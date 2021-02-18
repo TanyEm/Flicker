@@ -78,8 +78,14 @@
                                             <rect key="frame" x="0.0" y="3" width="374" height="44"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="BYZ-38-t0r" id="bGw-ww-aIj"/>
+                                            </connections>
                                         </searchBar>
                                     </subviews>
+                                    <connections>
+                                        <outlet property="searchBar" destination="4ED-Yc-cDj" id="YNp-ny-F3A"/>
+                                    </connections>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="qyo-GR-yuq"/>

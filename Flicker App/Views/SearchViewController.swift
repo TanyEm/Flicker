@@ -23,14 +23,14 @@ class SearchViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getData()
+        getData(search: "")
     }
     
     // MARK: - Get Data
     
-    func getData() {
+    func getData(search:String) {
                 
-        viewModel.getPhotosList(search: "String") { (list) in
+        viewModel.getPhotosList(search: search) { (list) in
             DispatchQueue.main.async {
                 if list.photo.count != 0 {
                     for photo in list.photo {
@@ -45,9 +45,6 @@ class SearchViewController: UIViewController {
         }
         
     }
-    
-   
-
 }
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -61,8 +58,6 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         
         if let unwrappedCost = photosList[indexPath.item].title{
             cell.title.text = String(describing: unwrappedCost)
-        }else{
-        cell.title.text = "0" //Your Value If It can't Find Cost in Class
         }
         
         return cell
@@ -86,5 +81,23 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let searchView: UICollectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchBar", for: indexPath)
+        return searchView
+    }
+     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.photosList.removeAll()
+        getData(search: searchBar.text!.lowercased())
+    }
+        
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        print("searchText \(searchText)")
+//        getData(search: searchBar.text!.lowercased())
+//    }
+    
 }
 

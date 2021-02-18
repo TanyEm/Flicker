@@ -14,7 +14,7 @@ class PhotosViewModel {
     func getPhotosList(search: String, callback: @escaping (_ result: PhotoResponseData)->()) {
         let request = NetworkManager()
         
-        request.getPhotosList(search: "String") { (result) in
+        request.getPhotosList(search: search) { (result) in
             print("result.photo",result.photo)
             
             DispatchQueue.main.async {
