@@ -73,8 +73,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4ED-Yc-cDj">
-                                            <rect key="frame" x="0.0" y="3" width="374" height="44"/>
+                                        <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search images, For ex: Apple" translatesAutoresizingMaskIntoConstraints="NO" id="4ED-Yc-cDj">
+                                            <rect key="frame" x="0.0" y="-9" width="374" height="56"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>

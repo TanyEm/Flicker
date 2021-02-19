@@ -24,6 +24,28 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         getData(search: "")
+        
+        // Add prompt when collectionView has no cells
+        if collectionView.visibleCells.isEmpty {
+            let backGroundView = UIView(frame: collectionView.bounds)
+            
+            collectionView.backgroundView = backGroundView
+            
+            let label = UILabel()
+            label.text = "Hello! You can start \n \n your search 👩‍💻"
+            label.font = UIFont.boldSystemFont(ofSize: 18)
+            label.numberOfLines = 0
+            label.textAlignment = .center
+            collectionView.backgroundView?.addSubview(label)
+            
+            label.translatesAutoresizingMaskIntoConstraints = false
+        
+            label.centerXAnchor.constraint(equalTo: backGroundView.centerXAnchor).isActive = true
+            label.centerYAnchor.constraint(equalTo: backGroundView.centerYAnchor).isActive = true
+            
+        } else {
+            collectionView.backgroundView = UIView()
+        }
     }
     
     // MARK: - Get Data
@@ -37,9 +59,11 @@ class SearchViewController: UIViewController {
                         print(photo.title)
                         self.photosList.append(PhotoData(id: photo.id, secret: photo.secret, server: photo.server, title: photo.title))
                     }
+                    //clear background
+                    self.collectionView.backgroundView = UIView()
                     self.collectionView.reloadData()
                 } else {
-                    print("Error: failed to get restaurant list")
+                    print("Error: failed to get list")
                 }
             }
         }
@@ -95,7 +119,16 @@ extension SearchViewController: UISearchBarDelegate {
      
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.photosList.removeAll()
-        getData(search: searchBar.text!.lowercased())
+        guard let count = searchBar.text?.count else {return}
+        
+        // make a request only if the request text count 3 char or more to relevant search
+        if count >= 3 {
+            getData(search: searchBar.text!.lowercased())
+        } else {
+            let message = AlertMessage()
+            message.showMessage(on: self, with: "Ooops!", message: "Please enter 3 or more symbols to search")
+        }
+                
     }
         
 //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
