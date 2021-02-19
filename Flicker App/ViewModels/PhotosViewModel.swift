@@ -44,4 +44,12 @@ class PhotosViewModel {
         return url
     }
     
+    func getReachability() -> Bool {
+        if Reachability.isConnectedToNetwork(){
+            return true
+        }else{
+            return false
+        }
+    }
+    
 }

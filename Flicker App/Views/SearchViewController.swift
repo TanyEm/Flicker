@@ -24,13 +24,20 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {        
         // Add prompt when collectionView has no cells
+        let networkErrorStatus = viewModel.getReachability()
         if collectionView.visibleCells.isEmpty {
             let backGroundView = UIView(frame: collectionView.bounds)
             
             collectionView.backgroundView = backGroundView
             
             let label = UILabel()
-            label.text = "Hello! You can start \n \n your search 👩‍💻"
+            
+            if networkErrorStatus {
+                label.text = "Hello! You can start \n \n your search 👩‍💻"
+            } else {
+                label.text = "Hello! Internet Connection \n \n not available! Please connect to \n \n the Internet 👩‍💻"
+            }
+            
             label.font = UIFont.boldSystemFont(ofSize: 18)
             label.numberOfLines = 0
             label.textAlignment = .center

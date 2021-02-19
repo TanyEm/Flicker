@@ -18,9 +18,25 @@ class Flicker_AppTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testRequest() throws {
+        let searchRequest = NetworkManager()
+                
+        let expectation = self.expectation(description: "photoList")
+        var isReceived: Bool?
+        
+        searchRequest.getPhotosList(search: "Apple") { (result) in
+            if result.photo.count != 0 {
+                isReceived = true
+            } else {
+                isReceived = false
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+
+        print("isReceived",isReceived)
+        XCTAssertEqual(isReceived, true)
+        
     }
 
     func testPerformanceExample() throws {
