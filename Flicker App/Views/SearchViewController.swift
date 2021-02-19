@@ -48,21 +48,7 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    func congigureImg(for cell: PhotoCellView, urlString: String) {
-                
-        DispatchQueue.main.async {
-            guard
-                let url = URL(string: urlString),
-                let data = try? Data(contentsOf: url),
-                let image = UIImage(data: data) else {
-                    return
-                }
-            cell.img.layer.cornerRadius = 10
-            cell.img.image = image
-        }
-    }
-    
+        
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photosList.count
     }
@@ -70,15 +56,12 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PhotoCellView = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoCellView
         
-        
-        
         if let title = photosList[indexPath.item].title,
            let id = photosList[indexPath.item].id,
            let secret = photosList[indexPath.item].secret,
            let server = photosList[indexPath.item].id {
-            let urlString = "https://live.staticflickr.com/\(server)/\(id)_\(secret).jpg"
+            cell.img.downloaded(from: "https://live.staticflickr.com/\(server)/\(id)_\(secret).jpg")
             cell.title.text = String(describing: title)
-            congigureImg(for: cell, urlString: urlString)
         }
         
         return cell
@@ -121,4 +104,3 @@ extension SearchViewController: UISearchBarDelegate {
 //    }
     
 }
-

@@ -16,7 +16,7 @@ class PhotoCellView: UICollectionViewCell {
             
         img.clipsToBounds = true
         img.layer.masksToBounds = true
-        
+        img.layer.cornerRadius = 10
     }
     
 }
