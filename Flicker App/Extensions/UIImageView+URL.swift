@@ -35,17 +35,30 @@ extension UIImageView {
             return activityIndicator
         }
     
-    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
+    func download(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
         contentMode = mode
         let activityIndicator = self.activityIndicator
         activityIndicator.startAnimating()
         URLSession.shared.dataTask(with: url) { data, response, error in
+            if error != nil {
+                print("error=\(String(describing:error))")
+                activityIndicator.stopAnimating()
+                return
+            }
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
                 let data = data, error == nil,
                 let image = UIImage(data: data)
-                else { return }
+                else {
+                DispatchQueue.main.async() { [weak self] in
+                    // If there no img set placeholder
+                    self?.image = UIImage(named: "flickr-ikoni")
+                    activityIndicator.stopAnimating()
+                    activityIndicator.removeFromSuperview()
+                }
+                return
+            }
             DispatchQueue.main.async() { [weak self] in
                 self?.image = image
                 activityIndicator.stopAnimating()
@@ -56,6 +69,6 @@ extension UIImageView {
     }
     func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
         guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
+        download(from: url, contentMode: mode)
     }
 }
