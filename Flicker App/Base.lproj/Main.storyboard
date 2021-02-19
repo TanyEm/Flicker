@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jAy-dy-S88">
-                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jAy-dy-S88">
+                                <rect key="frame" x="20" y="88" width="374" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yQs-Md-RMn">
                                     <size key="itemSize" width="128" height="159"/>
@@ -41,11 +41,11 @@
                                                         <constraint firstAttribute="width" constant="100" id="fDY-U9-40E"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YA-9A-XwQ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YA-9A-XwQ">
                                                     <rect key="frame" x="8" y="128" width="112" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Baq-yK-hDQ"/>
-                                                        <constraint firstAttribute="width" constant="100" id="UXF-c7-rzy"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="UXF-c7-rzy"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -95,9 +95,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jAy-dy-S88" secondAttribute="bottom" id="1Db-b0-vri"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jAy-dy-S88" secondAttribute="bottom" constant="-34" id="1Db-b0-vri"/>
                             <constraint firstItem="jAy-dy-S88" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="IrN-SI-YTL"/>
-                            <constraint firstItem="jAy-dy-S88" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="PIY-lH-G2h"/>
+                            <constraint firstItem="jAy-dy-S88" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="17" id="PIY-lH-G2h"/>
                             <constraint firstItem="jAy-dy-S88" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1.02415" constant="-50.000000000000057" id="jYg-bw-bI2"/>
                             <constraint firstItem="jAy-dy-S88" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="nHz-vZ-iLf"/>
                         </constraints>
