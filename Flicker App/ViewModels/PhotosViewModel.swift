@@ -9,25 +9,39 @@ import Foundation
 
 class PhotosViewModel {
     
-    var list = PhotoData()
+    var list = [PhotoData]()
     
-    func getPhotosList(search: String, callback: @escaping (_ result: PhotoResponseData)->()) {
+    func getPhotosList(search: String, callback: @escaping (_ result: [PhotoData])->()) {
         let request = NetworkManager()
         
-        request.getPhotosList(search: search) { (result) in
-            print("result.photo",result.photo)
-            
+        request.getPhotosList(search: search) { (result) in            
             DispatchQueue.main.async {
                 if result.photo.count != 0 {
                     for photo in result.photo {
-                        self.list = photo
-                        callback(result)
+                        self.list.append(PhotoData(id: photo.id, secret: photo.secret, server: photo.server, title: photo.title))
                     }
-                    //print("result", result)
+                    callback(self.list)
                 } else {
+                    callback(self.list)
                     print("Error: failed to get restaurant list")
                 }
             }
         }
     }
+    
+    func getImageURLByID(id: String?) -> String {
+        var url: String = ""
+        
+        for item in list {
+            if id == item.id {
+                if let server = item.server,
+                   let id = item.id,
+                   let secret = item.secret {
+                    url = "https://live.staticflickr.com/\(server)/\(id)_\(secret).jpg"
+                }
+            }
+        }
+        return url
+    }
+    
 }

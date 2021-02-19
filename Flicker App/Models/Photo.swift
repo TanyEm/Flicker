@@ -8,7 +8,6 @@
 import Foundation
 
 struct PhotoData: Codable {
-    //https://live.staticflickr.com/{server-id}/{id}_{secret}_{size-suffix}.jpg
     var id: String?
     var secret: String?
     var server: String?

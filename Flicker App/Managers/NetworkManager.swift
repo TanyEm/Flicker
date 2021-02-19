@@ -40,9 +40,7 @@ enum RequestMethod: CustomStringConvertible {
 }
 
 struct NetworkManager {
-    
-    static let shared = NetworkManager()
-            
+                
     private var urlComponents: URLComponents =  {
         var component = URLComponents()
         component.scheme = ApiConstants.URLScheme.description

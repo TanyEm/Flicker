@@ -14,17 +14,15 @@ class SearchViewController: UIViewController {
     private let viewModel = PhotosViewModel()
     private var photosList = [PhotoData]()
     
-    private var testArray = [String:String]()
-        
+    let message = AlertMessage()
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        getData(search: "")
-        
+    override func viewWillAppear(_ animated: Bool) {        
         // Add prompt when collectionView has no cells
         if collectionView.visibleCells.isEmpty {
             let backGroundView = UIView(frame: collectionView.bounds)
@@ -51,18 +49,14 @@ class SearchViewController: UIViewController {
     // MARK: - Get Data
     
     func getData(search:String) {
-                
         viewModel.getPhotosList(search: search) { (list) in
             DispatchQueue.main.async {
-                if list.photo.count != 0 {
-                    for photo in list.photo {
-                        print(photo.title)
-                        self.photosList.append(PhotoData(id: photo.id, secret: photo.secret, server: photo.server, title: photo.title))
-                    }
-                    //clear background
+                self.photosList = list
+                if list.count != 0 {
                     self.collectionView.backgroundView = UIView()
                     self.collectionView.reloadData()
                 } else {
+                    self.message.showMessage(on: self, with: "Ooops!", message: "Error. No results, please try again later")
                     print("Error: failed to get list")
                 }
             }
@@ -80,13 +74,8 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PhotoCellView = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoCellView
         
-        if let title = photosList[indexPath.item].title,
-           let id = photosList[indexPath.item].id,
-           let secret = photosList[indexPath.item].secret,
-           let server = photosList[indexPath.item].id {
-            cell.img.downloaded(from: "https://live.staticflickr.com/\(server)/\(id)_\(secret).jpg")
-            cell.title.text = String(describing: title)
-        }
+        cell.title.text = photosList[indexPath.item].title
+        cell.img.downloaded(from: viewModel.getImageURLByID(id: photosList[indexPath.item].id))
         
         return cell
     }
@@ -125,7 +114,6 @@ extension SearchViewController: UISearchBarDelegate {
         if count >= 3 {
             getData(search: searchBar.text!.lowercased())
         } else {
-            let message = AlertMessage()
             message.showMessage(on: self, with: "Ooops!", message: "Please enter 3 or more symbols to search")
         }
                 
