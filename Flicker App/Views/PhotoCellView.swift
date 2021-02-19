@@ -11,4 +11,12 @@ class PhotoCellView: UICollectionViewCell {
     @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var title: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+            
+        img.clipsToBounds = true
+        img.layer.masksToBounds = true
+        
+    }
+    
 }
